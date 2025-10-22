@@ -54,8 +54,8 @@
 
     nixpkgs.config.allowUnfree = true;
 
-    # This pin gcc-arm-embedded to version 13 which supports x86_64_darwin for pkgs.qmk
     nixpkgs.config.packageOverrides = pkgs: rec {
+        # This pin gcc-arm-embedded to version 13 which supports x86_64_darwin for pkgs.qmk
         gcc-arm-embedded = pkgs.gcc-arm-embedded-13;
     };
 
@@ -92,9 +92,6 @@
         pkgs.unzip
         pkgs.wget
         pkgs.yt-dlp
-
-        # Dev
-        pkgs.bruno
 
         # Notes
         pkgs.obsidian
@@ -156,6 +153,7 @@
             "teamviewer"
             "visual-studio-code"
             "ungoogled-chromium"
+            "bruno"
 
             # Does not exist in nixpkgs
             "clipy"
