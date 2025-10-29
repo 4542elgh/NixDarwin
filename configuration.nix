@@ -30,6 +30,26 @@
       }];
     };
 
+    # Mostly for broken or incompatibile package pinning (this is modifying global pkgs. instance)
+    nixpkgs.overlays = [
+    #   (self: super: {
+    #     wayland = super.wayland.overrideAttrs (oldAttrs: {
+    #       version = "1.23.0";  # use a known working version
+    #       src = super.fetchFromGitLab {
+    #         domain = "gitlab.freedesktop.org";
+    #         owner = "wayland";
+    #         repo = "wayland";
+    #         rev = "1.23.92";
+    #         hash = "";  # leave blank first, let nix figure out
+    #       };
+    #       meta = oldAttrs.meta // {
+    #         broken = false;
+    #       };
+    #     });
+    #   })
+    ];
+
+
      # MacOSX System configurations
     system.defaults.NSGlobalDomain.AppleInterfaceStyle = "Dark";
     system.defaults.dock = {
@@ -55,7 +75,7 @@
     nixpkgs.config.allowUnfree = true;
 
     nixpkgs.config.packageOverrides = pkgs: rec {
-        # This pin gcc-arm-embedded to version 13 which supports x86_64_darwin for pkgs.qmk
+        # This pin gcc-arm-embedded to version 13 which supports x86_64_darwin for pkgs.qmk (this is a local override)
         gcc-arm-embedded = pkgs.gcc-arm-embedded-13;
     };
 
@@ -108,9 +128,11 @@
         # Browser
         pkgs.firefox-unwrapped
 
+        # API
+        pkgs.bruno
+
         # Networking
         pkgs.nmap
-        pkgs.wireshark
 
         # Social
         pkgs.discord
@@ -146,6 +168,7 @@
             # Build failed
             "mullvad-vpn"
             "sweet-home3d"
+            "wireshark-app"
 
             # Not build for x86 Darwin
             "obs" 
@@ -153,7 +176,6 @@
             "teamviewer"
             "visual-studio-code"
             "ungoogled-chromium"
-            "bruno"
 
             # Does not exist in nixpkgs
             "clipy"
